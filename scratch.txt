@@ -1,0 +1,34 @@
+# I can see some gaps in the data.... Cabin & Age
+# But at the moment - I would like to check Sex & Survived
+
+%matplotlib inline
+df['Age'].hist()
+plt.show()
+
+
+df['Age'].dropna().hist(bins=16, range=(0,80), alpha = .5)
+plt.show()
+
+#Find People who Survived... and just show the Sex Column
+df[df['Survived']==1]['Sex']
+
+#Find people who survived - and only show Age - and Make this a histogram
+df[df['Survived']==1]['Age'].hist()
+
+
+#Make a new COLUMN
+#df['Gender']=4
+#Set That columns value using a lfunction
+df['Gender'] = df['Sex'].map( {'female': 0, 'male': 1} ).astype(int)
+
+
+#I want to filter where Age is NULL; And then only show me Sex,Pclass,Age 
+df[df['Age'].isnull()][['Sex', 'Pclass', 'Age']]
+
+#Find where Age is NULL  and Gender ==0 and Class=1 - set cls_age = 42.2
+df.loc[ (df.Age.isnull()) & (df.Gender == 0) & (df.Pclass == 1),'cls_age'] = 42.2
+
+
+#Drop a Column inplace 
+df.drop(['Age','Sex'],axis=1,inplace=True) 
+
